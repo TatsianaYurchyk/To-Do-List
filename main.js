@@ -5,6 +5,7 @@ let tasks;
 !localStorage.tasks ? tasks = [] : tasks = JSON.parse(localStorage.getItem('tasks'))
 
 let todoItemElems = [];
+
 function Task (description){
     this.description = description;
     this.completed = false;
@@ -46,7 +47,7 @@ const completeTask = index => {
 
     }
     updateLocal();
-    createHtmlList();
+    createHtmlList();f
 };
 
 addTaskBtn.addEventListener( 'click', () => {
@@ -57,7 +58,11 @@ addTaskBtn.addEventListener( 'click', () => {
 });
 
 const deleteTask = (index) => {
-    tasks.splice(index,1);
-    updateLocal();
-    createHtmlList();
+    todoItemElems[index].classList.add('animated');
+    setTimeout(() => {
+        tasks.splice(index,1);
+        updateLocal();
+        createHtmlList();
+    }, 550)
+    
 };
