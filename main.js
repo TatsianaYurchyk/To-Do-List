@@ -16,7 +16,7 @@ const createTemplate = (task, index) => {
          <div class="description"> ${task.description}</div>
             <div class="buttons">
                 <input onclick="completeTask(${index})" type="checkbox" class="btn-complete" ${task.completed ? 'checked': ''}>
-                <button class="btn-delete">Delete</button>
+                <button onclick="deleteTask(${index})" class="btn-delete">Delete</button>
         </div>
     </div>
     `
@@ -37,7 +37,7 @@ createHtmlList(); // to save the list after refreshing the page
 const updateLocal = () => {
     localStorage.setItem('tasks',JSON.stringify(tasks))
 }
-
+;
 const completeTask = index => {
     tasks[index].completed = !tasks[index].completed;
     if (tasks[index].completed) {
@@ -47,11 +47,17 @@ const completeTask = index => {
     }
     updateLocal();
     createHtmlList();
-}
+};
 
 addTaskBtn.addEventListener( 'click', () => {
     tasks.push(new Task (deskTaskInput.value));
     updateLocal();
     createHtmlList();
     deskTaskInput.value = ''; // clear the field after adding any task
-})
+});
+
+const deleteTask = (index) => {
+    tasks.splice(index,1);
+    updateLocal();
+    createHtmlList();
+};
