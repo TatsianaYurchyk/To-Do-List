@@ -23,9 +23,16 @@ const createTemplate = (task, index) => {
     `
 }
 
+const filterTasks = () => {
+    const activeTasks = tasks.length && tasks.filter (item => item.completed == false);
+    const completedTasks = tasks.length && tasks.filter (item => item.completed == true);
+    tasks = [...activeTasks, ...completedTasks];
+}
+
 const createHtmlList = () => {
     todosWrapper.innerHTML = "";
     if (tasks.length > 0) {
+        filterTasks();
         tasks.forEach((item, index) => {
             todosWrapper.innerHTML += createTemplate (item, index);
         });
@@ -66,3 +73,4 @@ const deleteTask = (index) => {
     }, 550)
     
 };
+
